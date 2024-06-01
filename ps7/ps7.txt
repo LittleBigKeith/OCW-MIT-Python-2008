@@ -1,0 +1,112 @@
+### Question 1
+def fact0(i):
+    assert type(i) == int and i >= 0
+    if i == 0 or i == 1:
+    return 1
+    return i * fact0(i-1) 
+
+Computational complexity: O(i)
+The factorial computation expands to
+i * (i - 1) * (i - 2) * ... * 1,
+the number of elements is proportional to i.
+
+
+
+### Question 2
+def fact1(i):
+    assert type(i) == int and i >= 0
+    res = 1
+    while i > 1:
+    res = res * i
+    i -= 1
+    return res
+
+Computational complexity: O(i)
+The factorial computation expands to
+1 * i * (i - 1) * (i - 2) * ... * 2
+the number of elements is proportional to i.
+
+
+
+### Question 3
+def makeSet(s):
+    assert type(s) == str
+    res = ''
+    for c in s:
+        if not c in res:
+            res = res + c
+    return res 
+
+Computational complexity: O(len(s))
+The function compares each character from s
+and decide whether to append it to res
+The time required grows linearly with len(s)
+
+
+
+### Question 4
+def intersect(s1, s2):
+    assert type(s1) == str and type(s2) == str
+    s1 = makeSet(s1)
+    s2 = makeSet(s2)
+    res = ''
+    for e in s1:
+        if e in s2:
+            res = res + e
+    return res
+
+Computational complexity: O(len(s1) * len(s2))
+The 'in' operation loops through s1 and s2 to
+find intersecting elements. Since the loops are
+nested, the complexity is the product of
+len(s1) and len(s2).
+
+
+
+### Question 5
+def swap0(s1, s2):
+    assert type(s1) == list and type(s2) == list
+    tmp = s1[:]
+    s1 = s2[:]
+    s2 = tmp
+    return
+s1 = [1]
+s2 = [2]
+swap0(s1, s2)
+print(s1, s2)
+
+Output: [1] [2]
+s1 and s2 are not swapped.
+Although swap0(s1, s2) is called,
+only the local copies of s1 and s2 are swapped.
+The function has no effect on the global s1 and s2.
+
+### Question 6
+def swap1(s1, s2):
+    assert type(s1) == list and type(s2) == list
+    return s2, s1
+s1 = [1]
+s2 = [2]
+s1, s2 = swap1(s1, s2)
+print s1, s2 
+
+Output: [2] [1]
+Local copies of s1 and s2 are swapped inside swap1 and passed
+back out into the global scope using return values.
+Therefore the global s1 and s2 are swapped.
+
+### Question 7
+def rev(s):
+    assert type(s) == list
+    for i in range(len(s)//2):
+        tmp = s[i]
+        s[i] = s[-(i+1)]
+        s[-(i+1)] = tmp
+s = [1,2,3]
+rev(s)
+print s 
+
+Output: [3,2,1]
+Since s is not defined as a local variable in rev(s),
+the reverse operation inside rev(s) is performed on the global s.
+Therefore, the global s is reversed.
